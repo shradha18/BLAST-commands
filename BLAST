@@ -1,0 +1,25 @@
+1. #to make a database
+makeblastdb -in fasta_database_file -dbtype prot
+
+2. #to run blast
+blastp -query query_file -db database_file -outfmt " 7 qseqid sseqid qstart qend sstart send qlen slen pident qcovs evalue bitscore" -out BLAST_results.out -max_target_seqs 1
+
+BLAST VARIANTS
+
+PROGRAM					QUERY SEQUENCE					              DATABASE SEQUENCE
+
+1.Blastp				protein						                          protein
+2.Blastn				nucleic acid					                      nucleic acid
+3.Blastx				translated nucleic acid				              protein
+4.TBlastn				protein						                          translated nucleic acid
+5.Tblastx				traslated nucleic acid				              translated nucleic acid
+
+
+3. # BLAST RESULTS MODIFICATION	
+sed -i 's/_\[/ \[/g' BLAST_results.out
+
+awk -v OFS= '     ' '{print $1 $2 $3 $4}' BLAST_results.out > BLAST_results1.out
+
+sed '/^#/d' BLAST_results.out > BLAST_results2.out
+
+sed -i 's/<.*>//1' BLAST_results.out
