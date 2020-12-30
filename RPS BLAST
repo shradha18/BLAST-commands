@@ -1,0 +1,5 @@
+1.to make database 
+
+makeprofiledb -in database.pn -out database -dbtype rps
+
+#Where database.pn is a text file with list of domains
